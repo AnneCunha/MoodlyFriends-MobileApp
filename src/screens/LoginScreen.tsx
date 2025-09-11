@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 
 export default function LoginScreen() {
+  const navigation = useNavigation(); // <--- aqui
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   function handleLogin() {
     if (email === "teste@email.com" && password === "123456") {
-      Alert.alert("Login realizado!", "Bem-vindo");
-      // Aqui futuramente chama a navegação para a Home
+      (navigation as any).navigate("MainTabs"); // <--- navegação direta
     } else {
       Alert.alert("Erro", "Email ou senha inválidos.");
     }
@@ -62,7 +65,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingHorizontal: 10,
     marginBottom: 20,
-    backgroundColor:"#ffff"
+    backgroundColor:"#fff"
   },
   button: {
     backgroundColor: "#A093C7",
@@ -70,7 +73,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: "60%",
     alignItems: "center",
-    boxShadow:" 3px 3px 10px 0px #5D6996"
+    shadowColor: "#5D6996",
+    shadowOpacity: 0.4,
+    shadowOffset: { width: 3, height: 3 },
+    shadowRadius: 5,
+    elevation: 3, // sombra no Android
   },
   buttonText: {
     color: "#fff",

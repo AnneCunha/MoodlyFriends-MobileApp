@@ -1,59 +1,45 @@
 import React from "react";
-import { View, Text, StyleSheet, ImageBackground, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export default function WelcomeScreen() {
   const navigation = useNavigation();
 
   return (
-    <ImageBackground
-      source={require("../../assets/PofuBackground.png")}
-      style={styles.background}
-      resizeMode="cover"  
-    >
-      <View style={styles.overlay}>
-        <Text style={styles.title}>Bem-vindo ao MoodlyFriends</Text>
-        <TouchableOpacity
-          style={styles.button}
-onPress={() => (navigation as any).navigate("Login")}
-        >
-          <Text style={styles.buttonText}>Entrar</Text>
-        </TouchableOpacity>
-      </View>
-    </ImageBackground>
+    <View style={styles.container}>
+      <Image
+        source={require("../../assets/PofuBackground.png")} // mascote do projeto
+        style={styles.mascot}
+        resizeMode="contain"
+      />
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => (navigation as any).navigate("Login")}
+      >
+        <Text style={styles.buttonText}>ENTRAR</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {
+  container: {
     flex: 1,
-    justifyContent: "flex-end",
-    backgroundColor: "#5D6996",
-    
-  },
-  overlay: {
+    backgroundColor: "#5D6996", // fundo azul do protótipo
+    justifyContent: "center",
     alignItems: "center",
-    paddingBottom: 50,
+    padding: 20,
   },
-  title: {
-    fontSize: 26,
-    fontWeight: "bold",
-    color: "#ffffffff",
-    marginBottom: 30,
-    textAlign: "center",
-    backgroundColor: "#5D6996",
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    borderRadius: 10,
+  mascot: {
+    width: 450,  // tamanho ajustável até parecer o protótipo
+    height: 450,
+    marginBottom: 40,
   },
   button: {
-    backgroundColor: "#4B5579",
+    backgroundColor: "#3E4666",
     paddingVertical: 15,
     paddingHorizontal: 80,
     borderRadius: 30,
-    elevation: 3,
-    boxShadow: "5px 5px 10px 0px #2d2e2fff",
-
   },
   buttonText: {
     fontSize: 18,
