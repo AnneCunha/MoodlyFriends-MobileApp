@@ -7,9 +7,9 @@ export default function WelcomeScreen() {
 
   return (
     <ImageBackground
-      source={require("../../assets/backgroundtest.jpg")}
+      source={require("../../assets/PofuBackground.png")}
       style={styles.background}
-      resizeMode="cover"
+      resizeMode="cover"  
     >
       <View style={styles.overlay}>
         <Text style={styles.title}>Bem-vindo ao MoodlyFriends</Text>
@@ -28,6 +28,8 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
     justifyContent: "flex-end",
+    backgroundColor: "#5D6996",
+    
   },
   overlay: {
     alignItems: "center",
@@ -36,20 +38,22 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 26,
     fontWeight: "bold",
-    color: "#333",
+    color: "#ffffffff",
     marginBottom: 30,
     textAlign: "center",
-    backgroundColor: "rgba(255,255,255,0.7)",
+    backgroundColor: "#5D6996",
     paddingHorizontal: 20,
     paddingVertical: 10,
     borderRadius: 10,
   },
   button: {
-    backgroundColor: "#ffcc66",
+    backgroundColor: "#4B5579",
     paddingVertical: 15,
     paddingHorizontal: 80,
     borderRadius: 30,
     elevation: 3,
+    boxShadow: "5px 5px 10px 0px #2d2e2fff",
+
   },
   buttonText: {
     fontSize: 18,

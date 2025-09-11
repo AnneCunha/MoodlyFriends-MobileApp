@@ -7,8 +7,8 @@ export default function LoginScreen() {
 
   function handleLogin() {
     if (email === "teste@email.com" && password === "123456") {
-      Alert.alert("Login realizado!", "Bem-vindo 🎉");
-      // Aqui futuramente você chama a navegação para a Home
+      Alert.alert("Login realizado!", "Bem-vindo");
+      // Aqui futuramente chama a navegação para a Home
     } else {
       Alert.alert("Erro", "Email ou senha inválidos.");
     }
@@ -16,7 +16,7 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Bem-vindo ao MoodlyFriends</Text>
+      <Text style={styles.title}>Insira suas informações para efetuar o Login</Text>
       
       <TextInput
         style={styles.input}
@@ -45,29 +45,32 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#f0f8ff",
+    backgroundColor: "#C0D7EE",
     padding: 20,
   },
   title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 40,
+    fontSize: 17,
+    marginBottom: 30,
+    color: "#5D6996",
+    textAlign: "center"
   },
   input: {
     width: "100%",
     height: 50,
-    borderColor: "#ccc",
+    borderColor: "#A093C7",
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 10,
     marginBottom: 20,
+    backgroundColor:"#ffff"
   },
   button: {
     backgroundColor: "#A093C7",
     padding: 15,
     borderRadius: 8,
-    width: "100%",
+    width: "60%",
     alignItems: "center",
+    boxShadow:" 3px 3px 10px 0px #5D6996"
   },
   buttonText: {
     color: "#fff",
