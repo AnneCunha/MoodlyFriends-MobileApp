@@ -64,17 +64,17 @@ Contribuições são bem-vindas! Se você tiver ideias para novas funcionalidade
 
 Este projeto foi carinhosamente desenvolvido por:
 
-* **[Nome Completo do Integrante 1]** - [Link para o GitHub](https://github.com/[usuario1])
-* **[Nome Completo do Integrante 2]** - [Link para o GitHub](https://github.com/[usuario2])
-* **[Nome Completo do Integrante 3]** - [Link para o GitHub](https://github.com/[usuario3])
-* **[Nome Completo do Integrante 4]** - [Link para o GitHub](https://github.com/[usuario4])
-* **[Nome Completo do Integrante 5]** - [Link para o GitHub](https://github.com/[usuario5])
-* **[Nome Completo do Integrante 6]** - [Link para o GitHub](https://github.com/[usuario6])
-* **[Nome Completo do Integrante 7]** - [Link para o GitHub](https://github.com/[usuario7])
-* **[Nome Completo do Integrante 8]** - [Link para o GitHub](https://github.com/[usuario8])
-* **[Nome Completo do Integrante 9]** - [Link para o GitHub](https://github.com/[usuario9])
-* **[Nome Completo do Integrante 10]** - [Link para o GitHub](https://github.com/[usuario10])
+* **Anne Cunha** - [Link para o GitHub](https://github.com/AnneCunha)
+* **Anna Malzone** - [Link para o GitHub](https://github.com/AnnaMalzone)
+* **Andrew Cesar** - [Link para o GitHub](https://github.com/Dudu-and)
+* **Adriel Rocha** - [Link para o GitHub](https://github.com/Starboy-adm)
+* **Claudio Lobo** - [Link para o GitHub](https://github.com/lobo-chaib)
+* **Guilherme Nogueira** - [Link para o GitHub](https://github.com/GuilhermeNgr)
+* **Jorge Augusto** - [Link para o GitHub](https://github.com/JorgeBackendDev)
+* **Juliano Awazu** - [Link para o GitHub](https://github.com/awazudev)
+* **Kauan Martes** - [Link para o GitHub](https://github.com/KauanM99)
+* **Ygor Belarmino** - [Link para o GitHub](https://github.com/Mercurykz)
 
 ## 📜 Licença
 
-Distribuído sob a licença **[Nome da Licença, ex: MIT]**. Veja o arquivo `LICENSE` para mais detalhes.
+Distribuído sob a licença **GSL**. Veja o arquivo `LICENSE` para mais detalhes.
