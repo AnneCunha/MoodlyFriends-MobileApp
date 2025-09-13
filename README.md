@@ -77,4 +77,4 @@ Este projeto foi carinhosamente desenvolvido por:
 
 ## 📜 Licença
 
-Distribuído sob a licença **GSL**. Veja o arquivo `LICENSE` para mais detalhes.
+Distribuído sob a licença **MIT**. Veja o arquivo `LICENSE` para mais detalhes.
