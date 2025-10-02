@@ -7,14 +7,10 @@ import { Ionicons } from "@expo/vector-icons";
 import WelcomeScreen from "./src/screens/WelcomeScreen";
 import LoginScreen from "./src/screens/LoginScreen";
 import HomeScreen from "./src/screens/HomeScreen";
+import ChatScreen from "./src/screens/ChatScreen";
+import ConfigScreen from "./src/screens/ConfigScreen";
 
 function DiarioScreen() {
-  return null;
-}
-function ChatScreen() {
-  return null;
-}
-function AjustesScreen() {
   return null;
 }
 
@@ -37,7 +33,8 @@ function MainTabs() {
 
           if (route.name === "Início") iconName = "home-outline";
           else if (route.name === "Diário") iconName = "book-outline";
-          else if (route.name === "Chat") iconName = "chatbubble-ellipses-outline";
+          else if (route.name === "Chat")
+            iconName = "chatbubble-ellipses-outline";
           else if (route.name === "Ajustes") iconName = "settings-outline";
 
           return <Ionicons name={iconName} size={26} color={color} />;
@@ -49,7 +46,7 @@ function MainTabs() {
       <Tab.Screen name="Início" component={HomeScreen} />
       <Tab.Screen name="Diário" component={DiarioScreen} />
       <Tab.Screen name="Chat" component={ChatScreen} />
-      <Tab.Screen name="Ajustes" component={AjustesScreen} />
+      <Tab.Screen name="Ajustes" component={ConfigScreen} />
     </Tab.Navigator>
   );
 }
