@@ -9,6 +9,10 @@ const TypingIndicator: React.FC = () => (
       .dot {
         animation: blink 1.4s infinite both;
         font-size: 20px;
+<<<<<<< HEAD
+=======
+        color: #fff;
+>>>>>>> a467f972a7496193efae568a206514b559d2db83
       }
       .dot:nth-child(2) { animation-delay: 0.2s; }
       .dot:nth-child(3) { animation-delay: 0.4s; }
