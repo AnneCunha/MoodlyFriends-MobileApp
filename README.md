@@ -1,6 +1,7 @@
 # 🌟 MoodlyFriends: Seu Diário de Humor com Amigos Virtuais
 
-![Banner do Projeto](imagem.png)
+![mood banner gato](https://github.com/user-attachments/assets/ff0bc81b-dd21-4377-9b64-b63a979e868b)
+
 
 ## ✨ Sobre o Projeto
 
