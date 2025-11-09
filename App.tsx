@@ -10,10 +10,7 @@ import RegisterScreen from "./src/screens/RegisterScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import ChatScreen from "./src/screens/ChatScreen";
 import ConfigScreen from "./src/screens/ConfigScreen";
-
-function DiarioScreen() {
-  return null;
-}
+import DiarioScreen from "./src/screens/DiarioScreen"; 
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
