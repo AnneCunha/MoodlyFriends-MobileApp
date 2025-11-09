@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
-=======
-import React, { useState, useRef } from "react";
+import React, { useState, useRef } from "react"; // Consolidação das importações
 import {
   View,               
   Text,               
@@ -10,7 +7,6 @@ import {
   KeyboardAvoidingView, 
   Platform,           
 } from "react-native";
->>>>>>> a467f972a7496193efae568a206514b559d2db83
 import {
   Avatar,
   EmptyState,
@@ -28,15 +24,10 @@ type Message = {
 const ChatScreen: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
-<<<<<<< HEAD
+  const scrollViewRef = useRef<ScrollView | null>(null); // Uso correto do useRef
 
   const handleSend = (message: string) => {
-    // adiciona mensagem do usuário
-=======
-  const scrollViewRef = useRef<ScrollView | null>(null);
-
-  const handleSend = (message: string) => {
->>>>>>> a467f972a7496193efae568a206514b559d2db83
+    // 1. Adiciona mensagem do usuário
     const newMsg: Message = {
       id: Date.now(),
       text: message,
@@ -44,90 +35,39 @@ const ChatScreen: React.FC = () => {
     };
     setMessages((prev) => [...prev, newMsg]);
 
-<<<<<<< HEAD
-    // simular resposta do bot
-    setIsTyping(true);
-    setTimeout(() => {
-      const botMsg: Message = {
-        id: Date.now(),
-=======
+    // 2. Simula resposta do bot (Lógica consolidada e correta)
     setIsTyping(true);
     setTimeout(() => {
       const botMsg: Message = {
         id: Date.now() + 1, 
->>>>>>> a467f972a7496193efae568a206514b559d2db83
         text: "Resposta do bot para: " + message,
         sender: "bot",
       };
       setMessages((prev) => [...prev, botMsg]);
       setIsTyping(false);
     }, 1500);
-  };
+  }; // Fim correto do handleSend
 
   return (
-<<<<<<< HEAD
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100vh",
-        border: "1px solid #ccc",
-      }}
-    >
-      {/* Header */}
-      <div
-        style={{
-          padding: "10px",
-          borderBottom: "1px solid #ccc",
-          display: "flex",
-          alignItems: "center",
-          gap: "10px",
-        }}
-      >
-        <Avatar />
-        <span style={{ fontWeight: "bold" }}>Chat com o Bot</span>
-      </div>
-
-      {/* Área de mensagens */}
-      <div
-        style={{
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          padding: "10px",
-          overflowY: "auto",
-        }}
-      >
-        {messages.length === 0 ? (
-          <EmptyState />
-        ) : (
-          messages.map((msg) => (
-            <MessageBubble key={msg.id} text={msg.text} sender={msg.sender} />
-          ))
-        )}
-
-        {isTyping && <TypingIndicator />}
-      </div>
-
-      {/* Barra de input */}
-      <InputBar onSend={handleSend} />
-    </div>
-=======
+    // Somente o bloco React Native é retornado
     <KeyboardAvoidingView
       style={styles.outerContainer}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={0} 
     >
       <View style={styles.chatContainer}>
+        {/* Header - Usando View e Text no lugar de div e span */}
         <View style={styles.header}>
           <Avatar />
           <Text style={styles.headerText}>Chat com o Bot</Text>
         </View>
 
+        {/* Área de Mensagens */}
         <ScrollView
           style={styles.messagesScrollView}
           contentContainerStyle={styles.messagesContent}
           ref={scrollViewRef}
+          // Garante que a ScrollView vá para o final ao adicionar novas mensagens
           onContentSizeChange={(w, h) => scrollViewRef.current?.scrollToEnd({ animated: true })}
         >
           {messages.length === 0 ? (
@@ -140,17 +80,14 @@ const ChatScreen: React.FC = () => {
           {isTyping && <TypingIndicator />}
         </ScrollView>
 
+        {/* Barra de input */}
         <InputBar onSend={handleSend} />
       </View>
     </KeyboardAvoidingView>
->>>>>>> a467f972a7496193efae568a206514b559d2db83
   );
 };
 
-export default ChatScreen;
-<<<<<<< HEAD
-=======
-
+// ... estilos (StyleSheet.create) ...
 const styles = StyleSheet.create({
   outerContainer: {
     flex: 1, 
@@ -178,6 +115,8 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontWeight: "bold",
+    // Adicione uma cor de texto aqui, senão pode estar invisível dependendo do background
+    color: '#fff', 
   },
   messagesScrollView: {
     flex: 1, 
@@ -190,4 +129,5 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
 });
->>>>>>> a467f972a7496193efae568a206514b559d2db83
+
+export default ChatScreen;
