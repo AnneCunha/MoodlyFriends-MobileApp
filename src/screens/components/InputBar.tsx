@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-<<<<<<< HEAD
-=======
 import { 
   View,           
   TextInput,      
@@ -8,7 +6,6 @@ import {
   Text,           
   StyleSheet      
 } from "react-native";
->>>>>>> a467f972a7496193efae568a206514b559d2db83
 
 type InputBarProps = {
   onSend: (message: string) => void;
@@ -25,52 +22,29 @@ const InputBar: React.FC<InputBarProps> = ({ onSend }) => {
   };
 
   return (
-<<<<<<< HEAD
-    <div
-      style={{ display: "flex", padding: "10px", borderTop: "1px solid #ccc" }}
-    >
-      <input
-        type="text"
-        value={message}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setMessage(e.target.value)
-        }
-        placeholder="Digite sua mensagem..."
-        style={{
-          flex: 1,
-          padding: "8px",
-          borderRadius: "8px",
-          border: "1px solid #ccc",
-        }}
-      />
-      <button onClick={handleSend} style={{ marginLeft: "8px" }}>
-        Enviar
-      </button>
-    </div>
-  );
-};
-
-export default InputBar;
-=======
+    // Componente principal do React Native (substitui o primeiro <div>)
     <View style={styles.container}>
-
       <View style={styles.inputArea}>
+        
+        {/* Componente de entrada de texto do React Native (substitui <input>) */}
         <TextInput
-        style={styles.textInput}
-        value={message}
-        onChangeText={setMessage}
-        placeholder="Digite sua mensagem..."
-        onSubmitEditing={handleSend} 
-      />
-      <TouchableOpacity onPress={handleSend} style={styles.button}>
-        <Text style={styles.buttonText}>Enviar</Text>
-      </TouchableOpacity>
+          style={styles.textInput}
+          value={message}
+          onChangeText={setMessage} // Usar onChangeText, não onChange
+          placeholder="Digite sua mensagem..."
+          onSubmitEditing={handleSend} 
+        />
+        
+        {/* Componente de botão do React Native (substitui <button>) */}
+        <TouchableOpacity onPress={handleSend} style={styles.button}>
+          <Text style={styles.buttonText}>Enviar</Text>
+        </TouchableOpacity>
       </View>
-      
     </View>
   );
 };
 
+// Utilizando StyleSheet.create para melhor performance e organização (Boa Prática!)
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
@@ -80,7 +54,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#6d79bdff",
     alignItems: 'center',
   },
-inputArea: {
+  inputArea: {
     flex: 1, 
     flexDirection: 'row', 
     alignItems: 'center',
@@ -92,14 +66,12 @@ inputArea: {
     position: 'relative',
     minHeight: 44,
   },
-
   textInput: {
     flex: 1, 
     padding: 8,
     paddingRight: 85, 
     minHeight: 44, 
   },
-  
   button: {
     position: 'absolute',
     right: 5, 
@@ -116,4 +88,3 @@ inputArea: {
 });
 
 export default InputBar;
->>>>>>> a467f972a7496193efae568a206514b559d2db83
