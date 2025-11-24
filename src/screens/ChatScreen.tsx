@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React, { useState, useRef } from "react"; // Consolidação das importações
 import {
   View,               
@@ -7,6 +8,9 @@ import {
   KeyboardAvoidingView, 
   Platform,           
 } from "react-native";
+=======
+import React, { useState } from "react";
+>>>>>>> Stashed changes
 import {
   Avatar,
   EmptyState,
@@ -24,10 +28,16 @@ type Message = {
 const ChatScreen: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
+<<<<<<< Updated upstream
   const scrollViewRef = useRef<ScrollView | null>(null); // Uso correto do useRef
 
   const handleSend = (message: string) => {
     // 1. Adiciona mensagem do usuário
+=======
+
+  const handleSend = (message: string) => {
+    // adiciona mensagem do usuário
+>>>>>>> Stashed changes
     const newMsg: Message = {
       id: Date.now(),
       text: message,
@@ -35,11 +45,19 @@ const ChatScreen: React.FC = () => {
     };
     setMessages((prev) => [...prev, newMsg]);
 
+<<<<<<< Updated upstream
     // 2. Simula resposta do bot (Lógica consolidada e correta)
     setIsTyping(true);
     setTimeout(() => {
       const botMsg: Message = {
         id: Date.now() + 1, 
+=======
+    // simular resposta do bot
+    setIsTyping(true);
+    setTimeout(() => {
+      const botMsg: Message = {
+        id: Date.now(),
+>>>>>>> Stashed changes
         text: "Resposta do bot para: " + message,
         sender: "bot",
       };
@@ -49,6 +67,7 @@ const ChatScreen: React.FC = () => {
   }; // Fim correto do handleSend
 
   return (
+<<<<<<< Updated upstream
     // Somente o bloco React Native é retornado
     <KeyboardAvoidingView
       style={styles.outerContainer}
@@ -131,3 +150,55 @@ const styles = StyleSheet.create({
 });
 
 export default ChatScreen;
+=======
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100vh",
+        border: "1px solid #ccc",
+      }}
+    >
+      {/* Header */}
+      <div
+        style={{
+          padding: "10px",
+          borderBottom: "1px solid #ccc",
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+        }}
+      >
+        <Avatar />
+        <span style={{ fontWeight: "bold" }}>Chat com o Bot</span>
+      </div>
+
+      {/* Área de mensagens */}
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          padding: "10px",
+          overflowY: "auto",
+        }}
+      >
+        {messages.length === 0 ? (
+          <EmptyState />
+        ) : (
+          messages.map((msg) => (
+            <MessageBubble key={msg.id} text={msg.text} sender={msg.sender} />
+          ))
+        )}
+
+        {isTyping && <TypingIndicator />}
+      </div>
+
+      {/* Barra de input */}
+      <InputBar onSend={handleSend} />
+    </div>
+  );
+};
+
+export default ChatScreen;
+>>>>>>> Stashed changes

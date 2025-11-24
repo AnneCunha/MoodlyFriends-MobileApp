@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+<<<<<<< Updated upstream
 import { 
   View,           
   TextInput,      
@@ -6,6 +7,8 @@ import {
   Text,           
   StyleSheet      
 } from "react-native";
+=======
+>>>>>>> Stashed changes
 
 type InputBarProps = {
   onSend: (message: string) => void;
@@ -22,6 +25,7 @@ const InputBar: React.FC<InputBarProps> = ({ onSend }) => {
   };
 
   return (
+<<<<<<< Updated upstream
     // Componente principal do React Native (substitui o primeiro <div>)
     <View style={styles.container}>
       <View style={styles.inputArea}>
@@ -88,3 +92,30 @@ const styles = StyleSheet.create({
 });
 
 export default InputBar;
+=======
+    <div
+      style={{ display: "flex", padding: "10px", borderTop: "1px solid #ccc" }}
+    >
+      <input
+        type="text"
+        value={message}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setMessage(e.target.value)
+        }
+        placeholder="Digite sua mensagem..."
+        style={{
+          flex: 1,
+          padding: "8px",
+          borderRadius: "8px",
+          border: "1px solid #ccc",
+        }}
+      />
+      <button onClick={handleSend} style={{ marginLeft: "8px" }}>
+        Enviar
+      </button>
+    </div>
+  );
+};
+
+export default InputBar;
+>>>>>>> Stashed changes

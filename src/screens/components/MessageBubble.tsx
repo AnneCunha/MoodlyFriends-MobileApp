@@ -15,6 +15,7 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ text, sender }) => {
         maxWidth: "70%",
         margin: "8px",
         padding: "10px",
+<<<<<<< Updated upstream
         
         // Apenas uma definição de borderRadius
         borderRadius: "20px 20px 0px 20px", 
@@ -23,6 +24,10 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ text, sender }) => {
         backgroundColor: sender === "user" ? "#3d3475ff" : "#EAEAEA",
         
         textDecorationColor: "#fff", // Esta propriedade não faz nada no <div>
+=======
+        borderRadius: "12px",
+        backgroundColor: sender === "user" ? "#DCF8C6" : "#EAEAEA",
+>>>>>>> Stashed changes
         alignSelf: sender === "user" ? "flex-end" : "flex-start",
       }}
     >
@@ -31,4 +36,8 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ text, sender }) => {
   );
 };
 
+<<<<<<< Updated upstream
 export default MessageBubble;
+=======
+export default MessageBubble;
+>>>>>>> Stashed changes
