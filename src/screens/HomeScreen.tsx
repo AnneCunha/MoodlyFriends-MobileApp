@@ -12,10 +12,15 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { LineChart } from "react-native-chart-kit";
+import { useRoute, useNavigation } from "@react-navigation/native";
 
 export default function HomeScreen() {
   const [selectedMoodIndex, setSelectedMoodIndex] = useState<number | null>(null);
   const [text, setText] = useState("");
+  const route = useRoute();
+  const navigation = useNavigation<any>();
+  const name = (route.params as { name?: string })?.name || 'Usuário';
+
 
   // Imagens das emoções
   const moodImages = [
@@ -33,7 +38,7 @@ export default function HomeScreen() {
     <ScrollView style={styles.container}>
       {/* Header */}
       <SafeAreaView style={styles.header}>
-        <Text style={styles.greeting}>Olá, Usuário!</Text>
+        <Text style={styles.greeting}>Olá, {name}!</Text>
         <TouchableOpacity>
           <Ionicons name="person-circle-outline" size={36} color="#5D6996" />
         </TouchableOpacity>

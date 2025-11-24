@@ -5,33 +5,54 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
-  Image,
   ScrollView,
   Alert,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { supabase } from "../lib/supabase";
 
 export default function RegisterScreen() {
   const navigation = useNavigation();
 
   const [name, setName] = useState("");
+  const [nick, setNick] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [fone, setFone] = useState("");
+  const [endereco, setEndereco] = useState("");
+  const [comentario, setComentario] = useState("");
 
-  function handleRegister() {
-    if (!name || !email || !password || !confirmPassword) {
-      Alert.alert("Atenção", "Preencha todos os campos!");
+  async function handleRegister() {
+    if (!name || !nick || !email || !password) {
+      Alert.alert("Atenção", "Nome, Nick, Email e Senha são obrigatórios!");
       return;
     }
 
     if (password !== confirmPassword) {
-      Alert.alert("Erro", "As senhas não coincidem!");
+      Alert.alert("Erro de Senha", "As senhas não coincidem!");
       return;
     }
 
-    Alert.alert("Sucesso", "Conta criada com sucesso!");
-    (navigation as any).navigate("LoginScreen");
+    const { error } = await supabase.from('usuario').insert([{
+      name,
+      nick,
+      email: email.trim().toLowerCase(),
+      senha: password,
+      cpf,
+      fone,
+      endereco,
+      comentario,
+      tempo: new Date().toISOString(),
+    }]);
+
+    if (error) {
+      Alert.alert("Erro no Cadastro", error.message);
+    } else {
+      Alert.alert("Sucesso!", "Sua conta foi criada. Você já pode fazer o login.");
+      (navigation as any).navigate("Login");
+    }
   }
 
   return (
@@ -39,70 +60,28 @@ export default function RegisterScreen() {
       contentContainerStyle={styles.container}
       keyboardShouldPersistTaps="handled"
     >
-      {/* Botão Voltar */}
       <TouchableOpacity
         onPress={() => (navigation as any).goBack()}
         style={styles.backButton}
       >
-        <Text style={styles.backText}>Voltar</Text>
+        <Text style={styles.backText}>Voltar para o Login</Text>
       </TouchableOpacity>
 
-      {/* Logo */}
-      <Image
-        source={require("../../assets/icon.png")} // substitua pelo seu logo
-        style={styles.logo}
-        resizeMode="contain"
-      />
+      <Text style={styles.title}>Criar Nova Conta</Text>
 
-      {/* Título */}
-      <Text style={styles.title}>Criar Conta</Text>
+      <TextInput style={styles.input} placeholder="Nome completo *" value={name} onChangeText={setName} />
+      <TextInput style={styles.input} placeholder="Nick (apelido) *" value={nick} onChangeText={setNick} />
+      <TextInput style={styles.input} placeholder="Email *" value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none"/>
+      <TextInput style={styles.input} placeholder="Senha *" secureTextEntry value={password} onChangeText={setPassword} />
+      <TextInput style={styles.input} placeholder="Confirmar Senha *" secureTextEntry value={confirmPassword} onChangeText={setConfirmPassword} />
+      <TextInput style={styles.input} placeholder="CPF" value={cpf} onChangeText={setCpf} keyboardType="numeric" />
+      <TextInput style={styles.input} placeholder="Telefone" value={fone} onChangeText={setFone} keyboardType="phone-pad" />
+      <TextInput style={styles.input} placeholder="Endereço" value={endereco} onChangeText={setEndereco} />
+      <TextInput style={[styles.input, {height: 80}]} placeholder="Comentário (opcional)" value={comentario} onChangeText={setComentario} multiline />
 
-      {/* Campos */}
-      <TextInput
-        style={styles.input}
-        placeholder="Nome completo"
-        value={name}
-        onChangeText={setName}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        secureTextEntry
-        value={password}
-        onChangeText={setPassword}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Confirmar senha"
-        secureTextEntry
-        value={confirmPassword}
-        onChangeText={setConfirmPassword}
-      />
-
-      {/* Botão Registrar */}
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>Registrar</Text>
+        <Text style={styles.buttonText}>Finalizar Cadastro</Text>
       </TouchableOpacity>
-
-      {/* Link para Login */}
-      <View style={styles.loginContainer}>
-        <Text style={styles.loginText}>Já tem uma conta? </Text>
-        <TouchableOpacity onPress={() => (navigation as any).navigate("LoginScreen")}>
-          <Text style={styles.loginLink}>Entrar</Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Rodapé */}
-      <Text style={styles.footerText}>
-        Seu companheiro para gerenciamento emocional
-      </Text>
     </ScrollView>
   );
 }
@@ -118,32 +97,19 @@ const styles = StyleSheet.create({
   },
   backButton: {
     alignSelf: "flex-start",
-    backgroundColor: "#F5F6FA",
-    paddingVertical: 6,
-    paddingHorizontal: 14,
-    borderRadius: 12,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 2,
-    elevation: 2,
     marginBottom: 20,
-    paddingBottom: 0,
   },
   backText: {
     color: "#5D6996",
     fontWeight: "600",
-  },
-  logo: {
-    width: 200,
-    height: 200,
-    marginBottom: 15,
+    fontSize: 16,
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "700",
     color: "#222",
     marginBottom: 25,
+    textAlign: 'center'
   },
   input: {
     width: "100%",
@@ -157,41 +123,16 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   button: {
-    backgroundColor: "#A6D7A0",
+    backgroundColor: "#A093C7",
     paddingVertical: 15,
     borderRadius: 10,
     width: "100%",
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOpacity: 0.15,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 3,
-    elevation: 3,
-    marginTop: 5,
+    marginTop: 10,
   },
   buttonText: {
     color: "#fff",
     fontWeight: "bold",
     fontSize: 16,
-  },
-  loginContainer: {
-    flexDirection: "row",
-    marginTop: 25,
-  },
-  loginText: {
-    color: "#555",
-    fontSize: 14,
-  },
-  loginLink: {
-    color: "#A093C7",
-    fontWeight: "600",
-    fontSize: 14,
-    textDecorationLine: "underline",
-  },
-  footerText: {
-    color: "#9BA4B4",
-    fontSize: 13,
-    marginTop: 60,
-    textAlign: "center",
   },
 });

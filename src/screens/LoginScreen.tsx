@@ -9,6 +9,7 @@ import {
   Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { supabase } from "../lib/supabase";
 
 export default function LoginScreen() {
   const navigation = useNavigation();
@@ -16,43 +17,73 @@ export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleLogin() {
-    if (email === "teste@email.com" && password === "123456") {
-      (navigation as any).navigate("MainTabs");
-    } else {
-      Alert.alert("Erro", "Email ou senha inválidos.");
+  async function handleLogin() {
+    const emailInput = email.trim().toLowerCase();
+    const passwordInput = password.trim();
+
+    if (emailInput === "" || passwordInput === "") {
+      Alert.alert("Erro", "Preencha todos os campos.");
+      return;
+    }
+
+    try {
+      // 1. Check in 'usuario' table
+      let { data: userData, error: userError } = await supabase
+        .from('usuario')
+        .select('id, nick') // Fetch id and nick
+        .eq('email', emailInput)
+        .eq('senha', passwordInput)
+        .single();
+
+      if (userError && userError.code !== 'PGRST116') throw new Error(userError.message);
+
+      if (userData) {
+        (navigation as any).navigate("Welcome", { name: userData.nick, userId: userData.id, isAdmin: false });
+        return;
+      }
+
+      // 2. If not found, check in 'adm' table
+      let { data: admData, error: admError } = await supabase
+        .from('adm')
+        .select('id, nick') // Fetch id and nick
+        .eq('email', emailInput)
+        .eq('senha', passwordInput)
+        .single();
+
+      if (admError && admError.code !== 'PGRST116') throw new Error(admError.message);
+
+      if (admData) {
+        (navigation as any).navigate("Welcome", { name: admData.nick, userId: admData.id, isAdmin: true });
+        return;
+      }
+
+      Alert.alert("Falha no Login", "Email ou senha inválidos.");
+
+    } catch (e: any) {
+      Alert.alert("Erro de Conexão", e.message);
     }
   }
 
-  function handleForgotPassword() {
-    Alert.alert("Recuperar senha", "Função em desenvolvimento 😅");
-  }
-
   function handleRegister() {
-    (navigation as any).navigate("RegisterScreen"); // ajuste conforme o nome real da sua tela de cadastro
+    (navigation as any).navigate("RegisterScreen");
   }
 
   return (
     <View style={styles.container}>
-      {/* Logo */}
       <Image
-        source={require("../../assets/icon.png")} // substitua pela sua logo
+        source={require("../../assets/icon.png")} 
         style={styles.logo}
         resizeMode="contain"
       />
-
-      {/* Título */}
       <Text style={styles.title}>Insira suas informações para efetuar o Login</Text>
-
-      {/* Campos */}
       <TextInput
         style={styles.input}
         placeholder="Digite seu email"
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
+        autoCapitalize="none"
       />
-
       <TextInput
         style={styles.input}
         placeholder="Digite sua senha"
@@ -60,18 +91,9 @@ export default function LoginScreen() {
         value={password}
         onChangeText={setPassword}
       />
-
-      {/* Esqueci minha senha */}
-      <TouchableOpacity onPress={handleForgotPassword} style={styles.forgotButton}>
-        <Text style={styles.forgotText}>Esqueci minha senha</Text>
-      </TouchableOpacity>
-
-      {/* Botão principal */}
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Entrar</Text>
       </TouchableOpacity>
-
-      {/* Link de cadastro */}
       <View style={styles.registerContainer}>
         <Text style={styles.registerText}>Não tem uma conta? </Text>
         <TouchableOpacity onPress={handleRegister}>
