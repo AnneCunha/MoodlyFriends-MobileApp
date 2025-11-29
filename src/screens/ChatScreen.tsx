@@ -1,12 +1,13 @@
-import React, { useState, useRef } from "react"; // Consolidação das importações
+import React, { useState, useRef } from "react";
 import {
-  View,               
-  Text,               
-  StyleSheet,         
-  ScrollView,         
-  KeyboardAvoidingView, 
-  Platform,           
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
 } from "react-native";
+import axios from 'axios';
 import {
   Avatar,
   EmptyState,
@@ -24,10 +25,9 @@ type Message = {
 const ChatScreen: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isTyping, setIsTyping] = useState(false);
-  const scrollViewRef = useRef<ScrollView | null>(null); // Uso correto do useRef
+  const scrollViewRef = useRef<ScrollView | null>(null);
 
-  const handleSend = (message: string) => {
-    // 1. Adiciona mensagem do usuário
+  const handleSend = async (message: string) => {
     const newMsg: Message = {
       id: Date.now(),
       text: message,
@@ -35,39 +35,54 @@ const ChatScreen: React.FC = () => {
     };
     setMessages((prev) => [...prev, newMsg]);
 
-    // 2. Simula resposta do bot (Lógica consolidada e correta)
-    setIsTyping(true);
-    setTimeout(() => {
-      const botMsg: Message = {
-        id: Date.now() + 1, 
-        text: "Resposta do bot para: " + message,
-        sender: "bot",
-      };
-      setMessages((prev) => [...prev, botMsg]);
-      setIsTyping(false);
-    }, 1500);
-  }; // Fim correto do handleSend
+setIsTyping(true);
+try {
+  const res = await axios.post(
+    "https://JorgeDev47.pythonanywhere.com/moodly/message",
+    {
+      mensagem: message,
+      user_id: "usuario-teste-123"
+    }
+  );
+
+  const botMsg: Message = {
+    id: Date.now() + 1,
+    text: res.data.resposta, // <-- seu Flask retorna "resposta"
+    sender: "bot",
+  };
+
+  setMessages((prev) => [...prev, botMsg]);
+} catch (error) {
+  console.error("Erro na chamada:", error);
+
+  const botMsg: Message = {
+    id: Date.now() + 1,
+    text: "Erro ao conectar com o bot.",
+    sender: "bot",
+  };
+
+  setMessages((prev) => [...prev, botMsg]);
+} finally {
+  setIsTyping(false);
+}
+  };
 
   return (
-    // Somente o bloco React Native é retornado
     <KeyboardAvoidingView
       style={styles.outerContainer}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={0} 
     >
       <View style={styles.chatContainer}>
-        {/* Header - Usando View e Text no lugar de div e span */}
         <View style={styles.header}>
           <Avatar />
           <Text style={styles.headerText}>Chat com o Bot</Text>
         </View>
 
-        {/* Área de Mensagens */}
         <ScrollView
           style={styles.messagesScrollView}
           contentContainerStyle={styles.messagesContent}
           ref={scrollViewRef}
-          // Garante que a ScrollView vá para o final ao adicionar novas mensagens
           onContentSizeChange={(w, h) => scrollViewRef.current?.scrollToEnd({ animated: true })}
         >
           {messages.length === 0 ? (
@@ -80,14 +95,14 @@ const ChatScreen: React.FC = () => {
           {isTyping && <TypingIndicator />}
         </ScrollView>
 
-        {/* Barra de input */}
         <InputBar onSend={handleSend} />
       </View>
     </KeyboardAvoidingView>
   );
 };
 
-// ... estilos (StyleSheet.create) ...
+export default ChatScreen;
+
 const styles = StyleSheet.create({
   outerContainer: {
     flex: 1, 
@@ -115,8 +130,6 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontWeight: "bold",
-    // Adicione uma cor de texto aqui, senão pode estar invisível dependendo do background
-    color: '#fff', 
   },
   messagesScrollView: {
     flex: 1, 
@@ -129,5 +142,3 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
   },
 });
-
-export default ChatScreen;
